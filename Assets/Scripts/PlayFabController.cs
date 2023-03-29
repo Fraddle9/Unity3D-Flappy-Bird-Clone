@@ -29,7 +29,7 @@ public class PlayFabController : MonoBehaviour
         {
             // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
             Statistics = new List<StatisticUpdate> {
-                new StatisticUpdate { StatisticName = "PlayerScore", Value = PlayerPrefs.GetInt("totalScore")},
+                new StatisticUpdate { StatisticName = "PlayerTotalScore", Value = PlayerPrefs.GetInt("totalScore")},
                 new StatisticUpdate { StatisticName = "PlayerHighScore", Value = PlayerPrefs.GetInt("highScore")},
 
             }
@@ -50,10 +50,10 @@ public class PlayFabController : MonoBehaviour
         Debug.Log("Received the following Statistics:");
         foreach (var eachStat in result.Statistics)
         {
-            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+            //Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
             switch (eachStat.StatisticName)
             {
-                case "PlayerScore":
+                case "PlayerTotalScore":
                     total_score = eachStat.Value;
                     scoreScript.totalScore = eachStat.Value;
                     break;
