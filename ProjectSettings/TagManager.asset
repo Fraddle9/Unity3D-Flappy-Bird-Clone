@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Ground
   - PFC
+  - RecoveryButton
   layers:
   - Default
   - TransparentFX

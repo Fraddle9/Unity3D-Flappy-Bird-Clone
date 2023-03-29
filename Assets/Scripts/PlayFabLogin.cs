@@ -4,16 +4,22 @@ using UnityEngine;
 using PlayFab.DataModels;
 using PlayFab.ProfilesModels;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class PlayFabLogin : MonoBehaviour
 {
-
+    private string playerEmail;
+    private string playerUsername;
+    public bool playerRecovered;
     private string userEmail;
     private string userPassword;
     private string username;
-    public GameObject loginPanel;
+
     public GameObject addLoginPanel;
-    public GameObject recoverButton;
+    public GameObject recoveryButton;
+
+    public CheckUserCredentials CUC;
+
 
     public void Start()
     {
@@ -33,6 +39,7 @@ public class PlayFabLogin : MonoBehaviour
             userPassword = PlayerPrefs.GetString("PASSWORD");
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
             PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSuccess, OnLoginFailure);
+            Debug.Log("SA");
         }
         else
         {
@@ -55,14 +62,18 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
-        loginPanel.SetActive(false);
-        recoverButton.SetActive(false);
+        recoveryButton.SetActive(false);
+        GetUserCredentials();
+        //SceneManager.LoadScene(0);
+
+
+
     }
 
     private void OnLoginMobileSuccess(LoginResult result)
     {
         Debug.Log("Congratulations, you made your first successful API call!");
-        loginPanel.SetActive(false);
+        GetUserCredentials();
     }
 
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
@@ -70,7 +81,6 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
-        loginPanel.SetActive(false);
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -133,7 +143,44 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("Congratulations, you made your first successful API call!");
         PlayerPrefs.SetString("EMAIL", userEmail);
         PlayerPrefs.SetString("PASSWORD", userPassword);
-        addLoginPanel.SetActive(false);
+        SceneManager.LoadScene(0);
+    }
+
+    public void GetUserCredentials()
+    {
+        var request = new GetAccountInfoRequest();
+        PlayFabClientAPI.GetAccountInfo(request, OnGetAccountInfoEmailSuccess, OnGetFailure);
+        
+    }
+
+    public void OnGetAccountInfoEmailSuccess(GetAccountInfoResult result)
+    {
+        playerEmail = result.AccountInfo.PrivateInfo.Email;
+        playerUsername = result.AccountInfo.Username;
+
+        playerRecovered = true;
+
+        Debug.Log(playerEmail);
+        Debug.Log("Success : " + result.AccountInfo.PrivateInfo.Email);
+        CheckCredentials();
+
+    }
+
+    public void OnGetFailure(PlayFabError error)
+    {
+
+        Debug.Log("failure : " + error);
+        CheckCredentials();
+
+    }
+
+    public void CheckCredentials()
+    {
+        if (playerEmail != null)
+        {
+            Debug.Log("CC");
+            recoveryButton.SetActive(false);
+        }
     }
 }
 #endregion

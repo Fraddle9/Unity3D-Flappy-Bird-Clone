@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     public static int gameScore;
     public GameObject score;
     public Score scoreScript;
+    public GameObject recoveryButton;
 
     public PlayFabController PFC;
+    public CheckUserCredentials CUC;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,10 +25,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         scoreScript = score.GetComponent<Score>();
         //PFC.GetStats();
         gameOver = false;
         gameStarted = false;
+        //recoveryButton.SetActive(true);
+
     }
 
     // Update is called once per frame
@@ -48,13 +53,26 @@ public class GameManager : MonoBehaviour
 
     public void GameHasStarted()
     {
+        StartCoroutine(WaitForFunction());
         gameStarted = true;
         getReady.SetActive(false);
+        
     }
 
     public void RestartBtn()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         PFC.GetStats();
+    }
+
+    public void RecoveryButton()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    IEnumerator WaitForFunction()
+    {
+        yield return new WaitForSeconds(0.1f);
+        recoveryButton.SetActive(false);
     }
 }
