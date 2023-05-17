@@ -34,8 +34,8 @@ public class Score : MonoBehaviour
 
     public void Scored()
     {
-        totalScore++;
         score++;
+        totalScore++;
         scoreText.text = score.ToString();
         panelScore.text = score.ToString();
         

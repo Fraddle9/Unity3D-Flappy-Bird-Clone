@@ -21,6 +21,7 @@ public class PlayFabController : MonoBehaviour
 
     public void SetStats()
     {
+
         current_score = scoreScript.score;
         total_score = scoreScript.totalScore;
         high_score = scoreScript.highScore;
@@ -37,6 +38,7 @@ public class PlayFabController : MonoBehaviour
         result => { Debug.Log("User statistics updated"); },
         error => { Debug.LogError(error.GenerateErrorReport()); });
     }
+
     public void GetStats()
     {
         PlayFabClientAPI.GetPlayerStatistics(
@@ -47,10 +49,9 @@ public class PlayFabController : MonoBehaviour
     }
     void OnGetStats(GetPlayerStatisticsResult result)
     {
-        Debug.Log("Received the following Statistics:");
         foreach (var eachStat in result.Statistics)
         {
-            //Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
             switch (eachStat.StatisticName)
             {
                 case "PlayerTotalScore":

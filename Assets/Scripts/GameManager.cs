@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         //PFC.GetStats();
         gameOver = false;
         gameStarted = false;
+        score.SetActive(false);
         //recoveryButton.SetActive(true);
 
     }
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     public void GameHasStarted()
     {
         StartCoroutine(WaitForFunction());
+        score.SetActive(true);
         gameStarted = true;
         getReady.SetActive(false);
         
