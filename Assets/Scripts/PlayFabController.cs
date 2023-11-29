@@ -15,8 +15,7 @@ public class PlayFabController : MonoBehaviour
 
     public void Start()
     {
-
-
+        
     }
 
     public void SetStats()
@@ -56,6 +55,7 @@ public class PlayFabController : MonoBehaviour
             {
                 case "PlayerTotalScore":
                     total_score = eachStat.Value;
+                    PlayerPrefs.SetInt("totalScore", total_score);
                     scoreScript.totalScore = eachStat.Value;
                     break;
                 case "PlayerHighScore":

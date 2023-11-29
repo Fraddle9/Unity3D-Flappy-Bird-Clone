@@ -837,6 +837,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &638436633
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2204,6 +2205,7 @@ MonoBehaviour:
   addLoginPanel: {fileID: 0}
   recoveryButton: {fileID: 2139496279}
   CUC: {fileID: 273538385}
+  PFC: {fileID: 1320498150}
 --- !u!1 &1981004451
 GameObject:
   m_ObjectHideFlags: 0

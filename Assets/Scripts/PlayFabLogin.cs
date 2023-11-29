@@ -22,6 +22,7 @@ public class PlayFabLogin : MonoBehaviour
     public GameObject recoveryButton;
 
     public CheckUserCredentials CUC;
+    public PlayFabController PFC;
 
 
     public void Start()
@@ -43,7 +44,8 @@ public class PlayFabLogin : MonoBehaviour
             userPassword = PlayerPrefs.GetString("PASSWORD");
             var request = new LoginWithEmailAddressRequest { Email = userEmail, Password = userPassword };
             PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginEmailSuccess, OnLoginEmailFailure);
-            loggedInWithEmail = true;
+            //loggedInWithEmail = true;
+            
         }
         else
         {
@@ -73,6 +75,7 @@ public class PlayFabLogin : MonoBehaviour
         
         recoveryButton.SetActive(false);
         GetUserCredentials();
+        PFC.GetStats();
         //SceneManager.LoadScene(0);
 
     }
